@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -13,7 +14,7 @@ func main() {
 
 	//创建一个tcp连接 ， 端口为8888
 
-	listener, err := net.Listen("tcp", "127.0.0.1:"+config.Get("receive.port"))
+	listener, err := net.Listen("tcp", config.Get("receive.ip")+":"+config.Get("receive.port"))
 
 	if err != nil {
 
@@ -82,10 +83,10 @@ func RecvFile(fileName string, conn net.Conn) {
 
 	//新建文件
 
-	dir := "./cdn/"
+	dir := config.Get("cdn_dir_path")
 	os.MkdirAll(dir, 755)
 
-	f, err := os.Create(dir + fileName)
+	f, err := os.Create(filepath.Join(dir, fileName))
 
 	if err != nil {
 
