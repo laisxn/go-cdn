@@ -83,7 +83,7 @@ func RecvFile(fileName string, conn net.Conn) {
 
 	//新建文件
 
-	dir := config.Get("cdn_dir_path")
+	dir := config.Get("receive.cdn_dir_path")
 	os.MkdirAll(dir, 755)
 
 	f, err := os.Create(filepath.Join(dir, fileName))
